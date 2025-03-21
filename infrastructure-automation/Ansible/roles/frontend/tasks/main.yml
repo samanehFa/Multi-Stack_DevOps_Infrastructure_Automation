@@ -1,0 +1,43 @@
+---
+- name: Update apt packages
+  become: yes
+  apt:
+    update_cache: yes
+    upgrade: yes
+
+#########################################
+# Vote container
+#########################################
+- name: Run vote-app container
+  docker_container:
+    name: vote-app
+    image: vote:latest
+    state: started
+    restart_policy: always
+    env:
+      REDIS_HOST: ""
+      REDIS_PORT: "6379"
+    ports:
+      - "80:80"
+    detach: yes
+
+#########################################
+# Results container
+######################################### 
+- name: Run result-app container
+  docker_container:
+    name: result-app
+    image: result:latest
+    state: started
+    restart_policy: always
+    env:
+      DB_HOST: ""
+      PG_HOST: ""
+      DB_USERNAME: ""
+      DB_PASSWORD: ""
+      PG_DATABASE: ""
+      DB_NAME: ""
+    ports:
+      - "8080:80"
+    detach: yes
+

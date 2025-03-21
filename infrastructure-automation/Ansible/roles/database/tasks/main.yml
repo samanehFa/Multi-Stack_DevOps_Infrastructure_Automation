@@ -1,0 +1,37 @@
+---
+- name: Update apt packages
+  become: yes
+  apt:
+    update_cache: yes
+    upgrade: yes
+
+#########################################
+# Postgres
+#########################################
+- name: Run PostgreSQL container
+  docker_container:
+    name: postgres
+    image: postgres:latest
+    state: started
+    restart_policy: always
+    env:
+      POSTGRES_USER: "{{ postgres_user }}"
+      POSTGRES_DB: "{{ postgres_db }}"
+      POSTGRES_PASSWORD: "{{ postgres_password }}"
+    ports:
+      - "5432:5432"
+    volumes:
+      - /var/lib/postgresql/data:/var/lib/postgresql/data 
+
+- name: Allow external PostgreSQL connections
+  shell: |
+    docker exec -it postgres  bash -c "echo \"host all all 0.0.0.0/0 md5\" >> /var/lib/postgresql/data/pg_hba.conf"
+    docker exec -it postgres  bash -c "echo \"listen_addresses='*'\" >> /var/lib/postgresql/data/postgresql.conf"
+  args:
+    executable: /bin/bash
+
+- name: Restart PostgreSQL container to apply changes
+  docker_container:
+    name: postgres
+    state: started
+    restart: yes

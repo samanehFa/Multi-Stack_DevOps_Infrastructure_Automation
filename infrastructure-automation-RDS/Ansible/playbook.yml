@@ -1,0 +1,10 @@
+---
+- hosts: backend 
+  roles:
+    - backend
+
+- hosts: frontend
+  roles:
+    - frontend
+
+

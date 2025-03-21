@@ -1,0 +1,44 @@
+---
+- name: Update apt packages
+  become: yes
+  apt:
+    update_cache: yes
+    upgrade: yes
+
+#########################################
+# Redis
+#########################################
+- name: Deploy Redis Container
+  become: yes
+  docker_container:
+    name: redis
+    image: redis
+    state: started
+    restart_policy: always
+    ports:
+      - "6379:6379"  # Expose Redis on default port
+    healthcheck:
+      test: "['CMD', 'redis-cli', '-h', 'localhost', 'ping']"
+      interval: "10s"
+      timeout: "5s"
+      retries: 3
+      start_period: "5s"
+
+
+#########################################
+# Worker
+#########################################
+- name: Run Worker app container
+  become: yes
+  docker_container:
+    name: worker
+    image: worker:v1.0
+    state: started
+    restart_policy: always
+    env:
+      DB_HOST: "{{ postgres_host }}"
+      DB_USERNAME: "{{ postgres_user }}"
+      DB_PASSWORD: "{{ postgres_password }}"
+      DB_NAME: "{{ postgres_db }}"
+      REDIS_HOST: ""
+ 
