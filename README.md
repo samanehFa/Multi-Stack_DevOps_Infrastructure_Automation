@@ -11,6 +11,8 @@ There are two deployment attempts documented in this repository:
 ## Reference
 The application code used in the `result`, `vote`, and `worker` components originates from [this repository](https://github.com/Pokfinner/ironhack-project-1).
 
+![image](https://github.com/user-attachments/assets/cf91f411-4095-4cbe-a83b-cab7f501d652)
+
 ## SSH ProxyJump Configuration
 To access different backend and frontend instances securely via a bastion host, configure your SSH settings by adding the following to your `~/.ssh/config` file:
 
