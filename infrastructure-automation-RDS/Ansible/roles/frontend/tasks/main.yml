@@ -39,26 +39,3 @@
     ports:
       - "8080:80"
     detach: yes
-
-# #########################################
-# # Testing connection (vote-app -> redis)
-# #########################################
-# - name: Execute bash shell inside vote-app container
-#   command: docker exec -it vote-app bash -c "apt-get update && apt-get install -y redis-tools"
-
-# - name: Ping Redis from vote-app container
-#   command: docker exec -it vote-app redis-cli -h 10.0.3.194 -p 6379 ping
-#   register: redis_ping_output
-
-# - name: Print Redis ping response
-#   debug:
-#     var: redis_ping_output.stdout_lines
-
-# #########################################
-# # Testing connection (result-app -> postgres)
-# #########################################
-# - name: Execute bash shell inside result-app container
-#   command: docker exec -it result-app bash -c "apt-get update && apt-get install -y postgresql-client"
-
-# - name: Ping PostgreSQL from result-app container
-#   command: docker exec -it result-app bash -c "env PGPASSWORD=postgres psql -h 10.0.3.247 -U postgres -d votes"
