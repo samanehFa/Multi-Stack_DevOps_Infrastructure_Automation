@@ -61,7 +61,7 @@ By using this configuration, you can securely tunnel into private instances via 
    git clone https://github.com/samanehFa/Multi-Stack_DevOps_Infrastructure_Automation.git
    cd Multi-Stack_DevOps_Infrastructure_Automation
    ```
-2. Provision the infrastructure using Terraform:
+2. Provision the AWS infrastructure using Terraform:
    ```sh
    cd terraform
    terraform init
