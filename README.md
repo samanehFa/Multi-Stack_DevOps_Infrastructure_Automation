@@ -57,6 +57,9 @@ Host frontend-vote-result
 
 By using this configuration, you can securely tunnel into private instances via the bastion without exposing them to the public internet.
 
+### Project Architecture
+![image](https://github.com/user-attachments/assets/04dbdcf6-9b18-4ab7-a03d-cafcb914bcae)
+
 ## Getting Started
 1. Clone the repository:
    ```sh
